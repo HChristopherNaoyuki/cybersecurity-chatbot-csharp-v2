@@ -1,4 +1,5 @@
-﻿using cybersecurity_chatbot_csharp_v2.Models;
+﻿// Services/ChatService.cs
+using cybersecurity_chatbot_csharp_v2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

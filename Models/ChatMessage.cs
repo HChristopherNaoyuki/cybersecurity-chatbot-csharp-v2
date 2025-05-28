@@ -1,4 +1,5 @@
-﻿namespace cybersecurity_chatbot_csharp_v2.Models
+﻿// Models/ChatMessage.cs
+namespace cybersecurity_chatbot_csharp_v2.Models
 {
     /// <summary>
     /// Represents a chat message with sender information and content

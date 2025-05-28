@@ -1,4 +1,5 @@
-﻿using cybersecurity_chatbot_csharp_v2.Models;
+﻿// Services/QuizService.cs
+using cybersecurity_chatbot_csharp_v2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Linq;
 namespace cybersecurity_chatbot_csharp_v2.Services
 {
     /// <summary>
-    /// Handles quiz functionality for the cybersecurity chatbot
+    /// Handles the cybersecurity quiz functionality
     /// </summary>
     public class QuizService
     {
@@ -21,37 +22,11 @@ namespace cybersecurity_chatbot_csharp_v2.Services
         public event EventHandler<QuizStateChangedEventArgs> QuizStateChanged;
 
         /// <summary>
-        /// Gets the current question
-        /// </summary>
-        public QuizQuestion CurrentQuestion => _quizActive && _currentQuestionIndex < _questions.Count
-            ? _questions[_currentQuestionIndex]
-            : null;
-
-        /// <summary>
-        /// Gets the current score
-        /// </summary>
-        public int Score => _score;
-
-        /// <summary>
-        /// Gets the total number of questions
-        /// </summary>
-        public int TotalQuestions => _questions.Count;
-
-        /// <summary>
-        /// Gets a value indicating whether the quiz is active
-        /// </summary>
-        public bool IsQuizActive => _quizActive;
-
-        /// <summary>
         /// Initializes a new instance of the QuizService class
         /// </summary>
         public QuizService()
         {
             _questions = new List<QuizQuestion>();
-            _currentQuestionIndex = 0;
-            _score = 0;
-            _quizActive = false;
-
             InitializeQuestions();
         }
 
@@ -63,60 +38,73 @@ namespace cybersecurity_chatbot_csharp_v2.Services
             _currentQuestionIndex = 0;
             _score = 0;
             _quizActive = true;
-            OnQuizStateChanged();
-        }
-
-        /// <summary>
-        /// Ends the current quiz
-        /// </summary>
-        public void EndQuiz()
-        {
-            _quizActive = false;
-            OnQuizStateChanged();
+            OnQuizStateChanged(new QuizStateChangedEventArgs
+            {
+                CurrentQuestion = _questions[_currentQuestionIndex],
+                Score = _score,
+                QuizActive = _quizActive,
+                QuestionNumber = _currentQuestionIndex + 1,
+                TotalQuestions = _questions.Count
+            });
         }
 
         /// <summary>
         /// Submits an answer to the current question
         /// </summary>
-        public bool SubmitAnswer(int answerIndex)
+        public void SubmitAnswer(int selectedIndex)
         {
-            if (!_quizActive || CurrentQuestion == null) return false;
+            if (!_quizActive) return;
 
-            bool isCorrect = answerIndex == CurrentQuestion.CorrectAnswerIndex;
+            var currentQuestion = _questions[_currentQuestionIndex];
+            bool isCorrect = selectedIndex == currentQuestion.CorrectAnswerIndex;
+
             if (isCorrect)
             {
                 _score++;
             }
 
-            OnQuizStateChanged(isCorrect ? "Correct!" : "Incorrect!", CurrentQuestion.Explanation);
-
-            _currentQuestionIndex++;
-            if (_currentQuestionIndex >= _questions.Count)
+            OnQuizStateChanged(new QuizStateChangedEventArgs
             {
-                EndQuiz();
-            }
-            else
-            {
-                OnQuizStateChanged();
-            }
-
-            return isCorrect;
+                CurrentQuestion = currentQuestion,
+                SelectedAnswerIndex = selectedIndex,
+                IsCorrect = isCorrect,
+                Score = _score,
+                QuizActive = _quizActive,
+                QuestionNumber = _currentQuestionIndex + 1,
+                TotalQuestions = _questions.Count,
+                ShowFeedback = true
+            });
         }
 
         /// <summary>
-        /// Raises the QuizStateChanged event
+        /// Moves to the next question in the quiz
         /// </summary>
-        protected virtual void OnQuizStateChanged(string message = null, string explanation = null)
+        public void NextQuestion()
         {
-            QuizStateChanged?.Invoke(this, new QuizStateChangedEventArgs
+            if (!_quizActive) return;
+
+            _currentQuestionIndex++;
+
+            if (_currentQuestionIndex >= _questions.Count)
             {
-                CurrentQuestion = CurrentQuestion,
-                QuestionNumber = _currentQuestionIndex + 1,
-                TotalQuestions = _questions.Count,
+                _quizActive = false;
+                OnQuizStateChanged(new QuizStateChangedEventArgs
+                {
+                    QuizComplete = true,
+                    Score = _score,
+                    QuizActive = _quizActive,
+                    TotalQuestions = _questions.Count
+                });
+                return;
+            }
+
+            OnQuizStateChanged(new QuizStateChangedEventArgs
+            {
+                CurrentQuestion = _questions[_currentQuestionIndex],
                 Score = _score,
                 QuizActive = _quizActive,
-                Message = message,
-                Explanation = explanation
+                QuestionNumber = _currentQuestionIndex + 1,
+                TotalQuestions = _questions.Count
             });
         }
 
@@ -126,7 +114,7 @@ namespace cybersecurity_chatbot_csharp_v2.Services
                 "What should you do if you receive an email asking for your password?",
                 new[] { "Reply with your password", "Delete the email", "Report the email as phishing", "Ignore it" },
                 2,
-                "Reporting phishing emails helps prevent scams."
+                "You should report phishing attempts to help protect others."
             ));
 
             _questions.Add(new QuizQuestion(
@@ -137,12 +125,81 @@ namespace cybersecurity_chatbot_csharp_v2.Services
             ));
 
             _questions.Add(new QuizQuestion(
-                "When using public Wi-Fi, you should:",
-                new[] { "Do online banking as usual", "Use a VPN for sensitive activities", "Disable your firewall", "Share files freely" },
-                1,
-                "VPNs encrypt your traffic on public networks."
+                "When should you use a VPN?",
+                new[] { "Only when traveling", "Only for banking", "On all public Wi-Fi networks", "Never" },
+                2,
+                "VPNs encrypt your traffic on insecure networks like public Wi-Fi."
             ));
 
             _questions.Add(new QuizQuestion(
-                "Two-factor authentication typically requires:",
-                new[] { "Two different passwords", "A password and a fingerprint", "A
+                "What is two-factor authentication (2FA)?",
+                new[] { "Using two passwords", "A backup email address", "A second verification method after password", "A type of firewall" },
+                2,
+                "2FA requires something you know (password) and something you have (phone/device)."
+            ));
+
+            _questions.Add(new QuizQuestion(
+                "How often should you update your software?",
+                new[] { "Never", "Only when it stops working", "When updates are available", "Once a year" },
+                2,
+                "Software updates often include critical security patches."
+            ));
+
+            _questions.Add(new QuizQuestion(
+                "What is a common sign of a phishing website?",
+                new[] { "HTTPS in the URL", "Slightly misspelled domain name", "Professional design", "Contact information" },
+                1,
+                "Scammers often use domains like 'g00gle.com' to trick users."
+            ));
+
+            _questions.Add(new QuizQuestion(
+                "How can you check if a website connection is secure?",
+                new[] { "Look for HTTPS and padlock icon", "Check the website design", "See if it loads quickly", "Ask a friend" },
+                0,
+                "HTTPS encrypts data between your browser and the website."
+            ));
+
+            _questions.Add(new QuizQuestion(
+                "What should you do before clicking a link in an email?",
+                new[] { "Click immediately if it looks interesting", "Hover to see the actual URL", "Forward to friends first", "Check your horoscope" },
+                1,
+                "Always verify links by hovering before clicking."
+            ));
+
+            _questions.Add(new QuizQuestion(
+                "Why shouldn't you use the same password everywhere?",
+                new[] { "It's hard to remember", "If one account is compromised, all are at risk", "Websites don't allow it", "It slows down your computer" },
+                1,
+                "Password reuse creates a single point of failure."
+            ));
+
+            _questions.Add(new QuizQuestion(
+                "What's the best way to handle sensitive documents?",
+                new[] { "Email them to yourself", "Store in cloud storage with 2FA", "Keep only paper copies", "Memorize them" },
+                1,
+                "Secure cloud storage with 2FA is safer than email or paper."
+            ));
+        }
+
+        protected virtual void OnQuizStateChanged(QuizStateChangedEventArgs e)
+        {
+            QuizStateChanged?.Invoke(this, e);
+        }
+    }
+
+    /// <summary>
+    /// Event arguments for quiz state changes
+    /// </summary>
+    public class QuizStateChangedEventArgs : EventArgs
+    {
+        public QuizQuestion CurrentQuestion { get; set; }
+        public int SelectedAnswerIndex { get; set; } = -1;
+        public bool IsCorrect { get; set; }
+        public int Score { get; set; }
+        public bool QuizActive { get; set; }
+        public bool QuizComplete { get; set; }
+        public bool ShowFeedback { get; set; }
+        public int QuestionNumber { get; set; }
+        public int TotalQuestions { get; set; }
+    }
+}

@@ -1,4 +1,5 @@
-﻿namespace cybersecurity_chatbot_csharp_v2.Models
+﻿// Models/QuizQuestion.cs
+namespace cybersecurity_chatbot_csharp_v2.Models
 {
     /// <summary>
     /// Represents a quiz question with possible answers and the correct answer

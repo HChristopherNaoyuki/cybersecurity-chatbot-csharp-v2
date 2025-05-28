@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿// Models/UserProfile.cs
+using System.Collections.Generic;
 
 namespace cybersecurity_chatbot_csharp_v2.Models
 {

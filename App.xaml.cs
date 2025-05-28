@@ -1,13 +1,9 @@
-﻿using System.Configuration;
-using System.Data;
+﻿// App.xaml.cs
 using System.Windows;
 
-namespace cybersecurity_chatbot_csharp_v2;
-
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : Application
+namespace cybersecurity_chatbot_csharp_v2
 {
+    public partial class App : Application
+    {
+    }
 }
-

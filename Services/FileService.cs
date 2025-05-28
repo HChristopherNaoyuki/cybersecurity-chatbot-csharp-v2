@@ -1,8 +1,10 @@
-﻿using cybersecurity_chatbot_csharp_v2.Models;
+﻿// Services/FileService.cs
+using cybersecurity_chatbot_csharp_v2.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 
 namespace cybersecurity_chatbot_csharp_v2.Services
 {

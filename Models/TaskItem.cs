@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Models/TaskItem.cs
+using System;
 
 namespace cybersecurity_chatbot_csharp_v2.Models
 {
