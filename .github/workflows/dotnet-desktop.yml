@@ -5,9 +5,9 @@ name: .NET Core Build and Test
 # Trigger workflow on pushes and pull requests to main/master branches
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "master" ]
 
 jobs:
   # Single job that handles building and testing
