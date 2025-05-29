@@ -110,73 +110,123 @@ namespace cybersecurity_chatbot_csharp_v2.Services
 
         private void InitializeQuestions()
         {
+            // QUESTION 1
             _questions.Add(new QuizQuestion(
                 "What should you do if you receive an email asking for your password?",
-                new[] { "Reply with your password", "Delete the email", "Report the email as phishing", "Ignore it" },
-                2,
+                new[] { 
+                    "Reply with your password", 
+                    "Delete the email", 
+                    "Report the email as phishing", 
+                    "Ignore it" },
+                3,
                 "You should report phishing attempts to help protect others."
             ));
 
+            // QUESTION 2
             _questions.Add(new QuizQuestion(
                 "Which of these is the strongest password?",
-                new[] { "password123", "P@ssw0rd", "CorrectHorseBatteryStaple", "12345678" },
-                2,
+                new[] { 
+                    "password123", 
+                    "P@ssw0rd", 
+                    "CorrectHorseBatteryStaple", 
+                    "12345678" },
+                3,
                 "Long passphrases are stronger than complex but short passwords."
             ));
 
+            // QUESTION 3
             _questions.Add(new QuizQuestion(
                 "When should you use a VPN?",
-                new[] { "Only when traveling", "Only for banking", "On all public Wi-Fi networks", "Never" },
-                2,
+                new[] { 
+                    "Only when traveling", 
+                    "Only for banking", 
+                    "On all public Wi-Fi networks", 
+                    "Never" },
+                3,
                 "VPNs encrypt your traffic on insecure networks like public Wi-Fi."
             ));
 
+            // QUESTION 4
             _questions.Add(new QuizQuestion(
                 "What is two-factor authentication (2FA)?",
-                new[] { "Using two passwords", "A backup email address", "A second verification method after password", "A type of firewall" },
-                2,
+                new[] { 
+                    "Using two passwords", 
+                    "A backup email address", 
+                    "A second verification method after password", 
+                    "A type of firewall" },
+                3,
                 "2FA requires something you know (password) and something you have (phone/device)."
             ));
 
+            // QUESTION 5
             _questions.Add(new QuizQuestion(
                 "How often should you update your software?",
-                new[] { "Never", "Only when it stops working", "When updates are available", "Once a year" },
-                2,
+                new[] { 
+                    "Never", 
+                    "Only when it stops working", 
+                    "When updates are available", 
+                    "Once a year" },
+                3,
                 "Software updates often include critical security patches."
             ));
 
+            // QUESTION 6
             _questions.Add(new QuizQuestion(
                 "What is a common sign of a phishing website?",
-                new[] { "HTTPS in the URL", "Slightly misspelled domain name", "Professional design", "Contact information" },
-                1,
+                new[] { 
+                    "HTTPS in the URL", 
+                    "Slightly misspelled domain name", 
+                    "Professional design", 
+                    "Contact information" },
+                2,
                 "Scammers often use domains like 'g00gle.com' to trick users."
             ));
 
+            // QUESTION 7
             _questions.Add(new QuizQuestion(
                 "How can you check if a website connection is secure?",
-                new[] { "Look for HTTPS and padlock icon", "Check the website design", "See if it loads quickly", "Ask a friend" },
-                0,
+                new[] { 
+                    "Look for HTTPS and padlock icon", 
+                    "Check the website design", 
+                    "See if it loads quickly", 
+                    "Ask a friend" },
+                1,
                 "HTTPS encrypts data between your browser and the website."
             ));
 
+            // QUESTION 8
             _questions.Add(new QuizQuestion(
                 "What should you do before clicking a link in an email?",
-                new[] { "Click immediately if it looks interesting", "Hover to see the actual URL", "Forward to friends first", "Check your horoscope" },
-                1,
+                new[] { 
+                    "Click immediately if it looks interesting", 
+                    "Hover to see the actual URL", 
+                    "Forward to friends first", 
+                    "Check your horoscope" },
+                2,
                 "Always verify links by hovering before clicking."
             ));
 
+            // QUESTION 9
             _questions.Add(new QuizQuestion(
                 "Why shouldn't you use the same password everywhere?",
-                new[] { "It's hard to remember", "If one account is compromised, all are at risk", "Websites don't allow it", "It slows down your computer" },
-                1,
+                new[] { 
+                    "It's hard to remember", 
+                    "If one account is compromised, all are at risk", 
+                    "Websites don't allow it", 
+                    "It slows down your computer" },
+                2,
                 "Password reuse creates a single point of failure."
             ));
 
+            // QUESTION 10
             _questions.Add(new QuizQuestion(
                 "What's the best way to handle sensitive documents?",
-                new[] { "Email them to yourself", "Store in cloud storage with 2FA", "Keep only paper copies", "Memorize them" },
-                1,
+                new[] { 
+                    "Email them to yourself", 
+                    "Store in cloud storage with 2FA", 
+                    "Keep only paper copies", 
+                    "Memorize them" },
+                2,
                 "Secure cloud storage with 2FA is safer than email or paper."
             ));
         }

@@ -7,37 +7,5 @@
              xmlns:local="clr-namespace:cybersecurity_chatbot_csharp_v2.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <!-- Chat message display -->
-        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Messages}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock Text="{Binding Sender}" FontWeight="Bold" 
-                                       Foreground="{Binding IsUserMessage, Converter={StaticResource MessageColorConverter}}"/>
-                            <TextBlock Text="{Binding Content}" TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-
-        <!-- Input area -->
-        <Grid Grid.Row="1" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged}" 
-                     VerticalContentAlignment="Center" Padding="5"/>
-            <Button Grid.Column="1" Content="Send" Command="{Binding SendCommand}" 
-                    Margin="5,0,0,0" Padding="10,5"/>
-        </Grid>
-    </Grid>
+    <!-- Chat interface implementation -->
 </UserControl>
