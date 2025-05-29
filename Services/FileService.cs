@@ -16,6 +16,8 @@ namespace cybersecurity_chatbot_csharp_v2.Services
         private readonly string _dataDirectory;
         private readonly string _userProfilesFile;
 
+        public object JsonConvert { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the FileService class
         /// </summary>
@@ -64,6 +66,11 @@ namespace cybersecurity_chatbot_csharp_v2.Services
                 Console.WriteLine($"Error loading user profiles: {ex.Message}");
                 return new Dictionary<string, UserProfile>();
             }
+        }
+
+        internal void SaveTasks(List<TaskItem> tasks)
+        {
+            throw new NotImplementedException();
         }
     }
 }
